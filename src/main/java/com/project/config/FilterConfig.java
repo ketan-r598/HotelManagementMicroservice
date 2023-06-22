@@ -9,13 +9,13 @@ import com.project.filter.JWTValidationFilter;
 
 @Configuration
 public class FilterConfig {
-	public static final String CONTACTS_PATH = "/admin/hotels/*";
+	public static final String OWNER_PATH = "/hotels/owner/*";
 	
 	@Bean
 	public FilterRegistrationBean<GenericFilterBean> jwtFilter(){
 		FilterRegistrationBean<GenericFilterBean> filterRegistrationBean = new FilterRegistrationBean<>();
 		filterRegistrationBean.setFilter(new JWTValidationFilter());
-		filterRegistrationBean.addUrlPatterns(CONTACTS_PATH);
+		filterRegistrationBean.addUrlPatterns(OWNER_PATH);
 		return filterRegistrationBean;
 	}
 	

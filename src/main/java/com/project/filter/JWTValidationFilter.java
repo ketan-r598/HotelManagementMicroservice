@@ -3,6 +3,8 @@ import java.io.IOException;
 
 import org.springframework.web.filter.GenericFilterBean;
 
+import com.project.session.Session;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
@@ -16,7 +18,9 @@ public class JWTValidationFilter extends GenericFilterBean{
 	
 	public static final String BEARER = "Bearer";
 	public static final String AUTHORIZATION = "Authorization";
-
+	
+	Session session = Session.getSession();
+	
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
 			throws IOException, ServletException {
@@ -37,9 +41,31 @@ public class JWTValidationFilter extends GenericFilterBean{
 					.parseClaimsJws(token)
 					.getBody();
 			request.setAttribute("claims", claims);
+			
 			System.out.println(claims.getSubject());
-			//String role = (String)claims.get("roles");
-			//System.out.println(role);
+			
+			int userId = (int) claims.get("userId");
+			String email = (String) claims.getSubject();
+			String password = (String) claims.get("password");
+			String role = (String) claims.get("role");
+			
+			if(!role.equalsIgnoreCase("owner")) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().println("Permission Denied");
+				return;
+			}
+			
+			System.out.println(userId);
+			System.out.println(email);
+			System.out.println(password);
+			System.out.println(role);
+			
+			session.setUserId(userId);
+			session.setEmail(email);
+			session.setPassword(password);
+			session.setRole(role);
+			
+			
 			chain.doFilter(request, response);
 			
 		}
