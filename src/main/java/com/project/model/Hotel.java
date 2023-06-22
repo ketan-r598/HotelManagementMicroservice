@@ -10,7 +10,8 @@ public class Hotel {
 	
 	@Id
 	private int hotelId;
-	
+
+	//	private int ownerId;
 	private String hotelName;
 	private String address;
 	private String city;
