@@ -16,33 +16,33 @@ import com.project.model.Hotel;
 import com.project.service.HotelService;
 
 @RestController
-@RequestMapping("/hotels/")
+@RequestMapping("/hotels/owner/")
 public class HotelController {
 
 	@Autowired
 	private HotelService service;
 	
-	@PostMapping("owner/addHotel")
+	@PostMapping("addHotel")
 	public void addHotel(@RequestBody Hotel hotel) {
 		service.addHotel(hotel);
 	}
 	
-	@PutMapping("owner/updateHotel")
+	@PutMapping("updateHotel")
 	public void updateHotel(@RequestBody Hotel hotel) {
 		service.updateHotel(hotel);
 	}
 	
-	@DeleteMapping("owner/delete/{id}")
+	@DeleteMapping("delete/{id}")
 	public void deleteHotel(@PathVariable int id) {
 		service.deleteHotel(id);
 	}
 	
-	@GetMapping("owner/getHotel/{id}")
+	@GetMapping("getHotel/{id}")
 	public Hotel getHotel(@PathVariable int id) {
 		return service.getHotel(id).get();
 	}
 	
-	@GetMapping("owner/getHotels")
+	@GetMapping("getHotels")
 	public List<Hotel> getHotels() {
 		return service.getHotels();
 	}
