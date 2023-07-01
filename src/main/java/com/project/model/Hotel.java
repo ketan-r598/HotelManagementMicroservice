@@ -1,6 +1,8 @@
 package com.project.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -9,10 +11,12 @@ import jakarta.persistence.Table;
 public class Hotel {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int hotelId;
 
 	//	private int ownerId;
 	private String hotelName;
+	private int userId;
 	private String address;
 	private String city;
 	private String state;
