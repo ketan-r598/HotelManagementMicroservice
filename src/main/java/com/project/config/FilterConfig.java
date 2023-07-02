@@ -9,7 +9,7 @@ import com.project.filter.JWTValidationFilter;
 
 @Configuration
 public class FilterConfig {
-	public static final String OWNER_PATH = "/hotels/owner/*";
+	public static final String OWNER_PATH = "/customer/owner/*";
 	
 	@Bean
 	public FilterRegistrationBean<GenericFilterBean> jwtFilter(){

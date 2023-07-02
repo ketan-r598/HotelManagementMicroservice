@@ -66,7 +66,7 @@ public class HotelController {
 	}
 	
 	@GetMapping("getHotels/{userId}")
-	public List<Hotel> getHotelsByUserId(@PathVariable int id) {
-		return service.getHotelsByUserId(id);
+	public List<Hotel> getHotelsByUserId(@PathVariable int userId) {
+		return service.getHotelsByUserId(userId);
 	}
 }
