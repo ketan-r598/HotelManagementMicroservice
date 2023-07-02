@@ -12,4 +12,5 @@ public interface HotelService {
 	public void deleteHotel(int id);
 	public Optional<Hotel> getHotel(int id);
 	public List<Hotel> getHotels();
+	public List<Hotel> getHotelsByUserId(int id);
 }
