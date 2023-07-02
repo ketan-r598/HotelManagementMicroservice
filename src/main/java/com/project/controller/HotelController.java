@@ -1,5 +1,6 @@
 package com.project.controller;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.model.Hotel;
+import com.project.repository.HotelRepository;
 import com.project.service.HotelService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -27,6 +29,9 @@ public class HotelController {
 
 	@Autowired
 	private HotelService service;
+	
+	@Autowired
+	private HotelRepository repo;
 	
 	@PostMapping("addHotel")
 	public void addHotel(@RequestBody Hotel hotel) {
@@ -68,5 +73,13 @@ public class HotelController {
 	@GetMapping("getHotels/{userId}")
 	public List<Hotel> getHotelsByUserId(@PathVariable int userId) {
 		return service.getHotelsByUserId(userId);
+	}
+	
+	@GetMapping("getHotelsByCity/{city}")
+	public List<Hotel> getHotelsByCity(@PathVariable String city) {
+		if(city.length() == 0) {
+			return Collections.emptyList();
+		}
+		return repo.findByCity(city);
 	}
 }
