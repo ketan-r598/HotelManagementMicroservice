@@ -29,11 +29,12 @@ public class Hotel {
 	
 	}
 
-	public Hotel(int hotelId, String hotelName, String address, String city, String state, String country,
+	public Hotel(int hotelId, String hotelName, int userId, String address, String city, String state, String country,
 			double avgRating, String email, String contactInfo) {
 		super();
 		this.hotelId = hotelId;
 		this.hotelName = hotelName;
+		this.userId = userId;
 		this.address = address;
 		this.city = city;
 		this.state = state;
@@ -42,6 +43,8 @@ public class Hotel {
 		this.email = email;
 		this.contactInfo = contactInfo;
 	}
+
+
 
 	public int getHotelId() {
 		return hotelId;
@@ -115,10 +118,18 @@ public class Hotel {
 		this.contactInfo = contactInfo;
 	}
 
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
 	@Override
 	public String toString() {
-		return "Hotel [hotelId=" + hotelId + ", hotelName=" + hotelName + ", address=" + address + ", city=" + city
-				+ ", state=" + state + ", country=" + country + ", avgRating=" + avgRating + ", email=" + email
-				+ ", contactInfo=" + contactInfo + "]";
+		return "Hotel [hotelId=" + hotelId + ", hotelName=" + hotelName + ", userId=" + userId + ", address=" + address
+				+ ", city=" + city + ", state=" + state + ", country=" + country + ", avgRating=" + avgRating
+				+ ", email=" + email + ", contactInfo=" + contactInfo + "]";
 	}
 }
