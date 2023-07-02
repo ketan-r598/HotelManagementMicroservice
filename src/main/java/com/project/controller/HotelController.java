@@ -1,8 +1,12 @@
 package com.project.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.model.Hotel;
 import com.project.service.HotelService;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*", allowCredentials = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/hotels/owner/")
 public class HotelController {
@@ -30,22 +34,39 @@ public class HotelController {
 	}
 	
 	@PutMapping("updateHotel")
-	public void updateHotel(@RequestBody Hotel hotel) {
+	public ResponseEntity<Map<String, Boolean>> updateHotel(@RequestBody Hotel hotel) {
 		service.updateHotel(hotel);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("updated", Boolean.TRUE);
+		return ResponseEntity.ok(response);
 	}
 	
 	@DeleteMapping("delete/{id}")
-	public void deleteHotel(@PathVariable int id) {
+	public ResponseEntity<Map<String, Boolean>> deleteHotel(@PathVariable int id) {
 		service.deleteHotel(id);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("deleted", Boolean.TRUE);
+		return ResponseEntity.ok(response);
 	}
 	
 	@GetMapping("getHotel/{id}")
-	public Hotel getHotel(@PathVariable int id) {
-		return service.getHotel(id).get();
+	public ResponseEntity<Hotel> getHotel(@PathVariable int id) {
+		Optional<Hotel> hotel = service.getHotel(id);
+		
+		if(hotel.isPresent()) {
+			return ResponseEntity.ok(hotel.get());
+		} else {
+			return ResponseEntity.ofNullable(hotel.get());
+		}
 	}
 	
 	@GetMapping("getHotels")
 	public List<Hotel> getHotels() {
 		return service.getHotels();
+	}
+	
+	@GetMapping("getHotels/{userId}")
+	public List<Hotel> getHotelsByUserId(@PathVariable int id) {
+		return service.getHotelsByUserId(id);
 	}
 }
