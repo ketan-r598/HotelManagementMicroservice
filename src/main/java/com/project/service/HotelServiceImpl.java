@@ -76,4 +76,9 @@ public class HotelServiceImpl implements HotelService {
 		return repo.findAll();
 	}
 
+	@Override
+	public List<Hotel> getHotelsByUserId(int id) {
+		return repo.findByUserId(id);
+	}
+
 }
